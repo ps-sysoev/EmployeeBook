@@ -5,11 +5,11 @@ import model.Employee;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class EmployeeStory {
+public class EmployeeRepository {
     private Employee[] employees = new Employee[100];
     private int index = 0;
 
-    private Employee save(Employee employee) {
+    public Employee save(Employee employee) {
         if (index == employees.length - 1) {
             System.out.println("Book size is max.");
             employee.setId(-1);
@@ -42,14 +42,14 @@ public class EmployeeStory {
                 employees[i] = null;
                 index--;
 
-                return true;
-            }
-        }
+                for (int j = 0; j < employees.length - 1; j++) {
+                    if (Objects.isNull(employees[j])) {
+                        employees[j] = employees[j + 1];
+                        employees[j + 1] = null;
+                    }
+                }
 
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (Objects.isNull(employees[i])) {
-                employees[i] = employees[i + 1];
-                employees[i + 1] = null;
+                return true;
             }
         }
 
