@@ -4,7 +4,6 @@ public class Employee {
     private long id;
     private String name;
     private String country;
-    // private LocalDateTime localDateTime;
 
     public Employee() {
     }

@@ -1,18 +1,19 @@
 package repository;
 
 import model.Employee;
+import util.Constants;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 public class EmployeeRepository {
-    private Employee[] employees = new Employee[100];
+    private final Employee[] employees = new Employee[100];
     private int index = 0;
 
     public Employee save(Employee employee) {
         if (index == employees.length - 1) {
             System.out.println("Book size is max.");
-            employee.setId(-1);
+            employee.setId(Constants.INCORRECT_ID);
         } else {
             employees[index] = employee;
             index++;

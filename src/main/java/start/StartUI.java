@@ -1,56 +1,53 @@
 package start;
 
-import model.Employee;
+import actions.*;
+import input.ConsoleInput;
+import input.Input;
 import service.EmployeeService;
 
-import java.util.Scanner;
-
 public class StartUI {
-    private static void showMenu() {
-        System.out.println("Service for working with the employee directory.");
-        System.out.println("1. Save.");
-        System.out.println("2. Delete.");
-        System.out.println("3. Find all.");
-        System.out.println("4. Exit.");
-        System.out.println("--------------------------------------------------");
+    private void showMenu(EmployeeAction[] employeeAction) {
+        System.out.println("*****************************");
+        System.out.println("Welcome it is menu.");
+
+        for (int i = 0; i < employeeAction.length; i++) {
+            System.out.println("[" + i + "] " + employeeAction[i].name());
+        }
+
+        System.out.println("*****************************");
     }
 
-    public static void main(String[] args) {
-        EmployeeService employeeService = new EmployeeService();
-        Scanner scanner = new Scanner(System.in);
-
+    public void init(Input input, EmployeeService employeeService, EmployeeAction[] employeeAction) {
         boolean isRunning = true;
 
         while (isRunning) {
-            showMenu();
+            showMenu(employeeAction);
 
-            System.out.print("select the command: ");
-            int value = scanner.nextInt();
+            int select = (int) input.askLong("Select the command: ");
+            int employeeActionLength = employeeAction.length;
 
-            if (value == 1) {
-                System.out.print("Enter name: ");
-                String name = scanner.next();
+            if (select < 0 || select >= employeeActionLength) {
+                System.out.println("Input error. You have to choose: 0 .. " + (employeeActionLength - 1));
 
-                System.out.print("Enter country: ");
-                String country = scanner.next();
-
-                Employee employee = new Employee(name, country);
-
-                employeeService.save(employee);
-            } else if (value == 2) {
-                System.out.print("Enter id for delete: ");
-                long id = scanner.nextLong();
-
-                employeeService.delete(id);
-            } else if (value == 3) {
-                for (Employee employee : employeeService.findAll()) {
-                    System.out.println(employee);
-                }
-            } else if (value == 4) {
-                isRunning = false;
-
-                System.out.println("Exit program.");
+                continue;
             }
+
+            EmployeeAction action = employeeAction[select];
+            isRunning = action.execute(input, employeeService);
         }
+    }
+
+    public static void main(String[] args) {
+        Input input = new ConsoleInput();
+        EmployeeService employeeService = new EmployeeService();
+
+        EmployeeAction[] actions = {
+                new CreateAction(),
+                new DeleteAction(),
+                new FindAllAction(),
+                new ExitProgramAction()
+        };
+
+        new StartUI().init(input, employeeService, actions);
     }
 }

@@ -2,12 +2,15 @@ package service;
 
 import model.Employee;
 import repository.EmployeeRepository;
+import util.Constants;
 
 public class EmployeeService {
     private final EmployeeRepository employeeRepository = new EmployeeRepository();
 
-    public Employee save(Employee employee) {
-        return employeeRepository.save(employee);
+    public boolean save(Employee employee) {
+        Employee result = employeeRepository.save(employee);
+
+        return result.getId() != Constants.INCORRECT_ID;
     }
 
     public boolean delete(long id) {
