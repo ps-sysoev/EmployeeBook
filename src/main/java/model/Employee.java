@@ -1,51 +1,24 @@
 package model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Employee {
     private long id;
     private String name;
     private String country;
+    private LocalDateTime created;
 
-    public Employee() {
-    }
-
-    public Employee(String name, String country) {
-        this.id = System.currentTimeMillis();
+    public Employee(@NonNull String name, String country) {
         this.name = name;
         this.country = country;
-
-        System.out.printf("An employee with id %s has been created.\n", this.id);
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+        this.created = LocalDateTime.now();
     }
 }

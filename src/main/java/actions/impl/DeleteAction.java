@@ -1,12 +1,13 @@
-package actions;
+package actions.impl;
 
+import actions.EmployeeAction;
 import input.Input;
 import service.EmployeeService;
 
 public class DeleteAction implements EmployeeAction {
     @Override
     public String name() {
-        return "Delete Employee";
+        return "Delete employee.";
     }
 
     @Override

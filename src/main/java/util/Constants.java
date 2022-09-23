@@ -1,8 +1,9 @@
 package util;
 
-public final class Constants {
-    public static final long INCORRECT_ID = -1;
+import lombok.experimental.UtilityClass;
 
-    private Constants() {
-    }
+@UtilityClass
+public class Constants {
+    public static final int INCORRECT_ID = -1;
+    public static final String PATTERN_DATE = "dd-MM-yyyy HH:mm";
 }

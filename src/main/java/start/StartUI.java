@@ -1,8 +1,11 @@
 package start;
 
 import actions.*;
+import actions.impl.*;
 import input.ConsoleInput;
 import input.Input;
+import mapper.EmployeeMapper;
+import repository.impl.EmployeeMemRepository;
 import service.EmployeeService;
 
 public class StartUI {
@@ -39,12 +42,20 @@ public class StartUI {
 
     public static void main(String[] args) {
         Input input = new ConsoleInput();
-        EmployeeService employeeService = new EmployeeService();
+        EmployeeService employeeService = new EmployeeService(
+                new EmployeeMemRepository(),
+                new EmployeeMapper()
+        );
 
         EmployeeAction[] actions = {
                 new CreateAction(),
+                new UpdateAction(),
                 new DeleteAction(),
                 new FindAllAction(),
+                new FindByIdAction(),
+                new FindByIntervalDateAction(),
+                new FindByNameAction(),
+                new SortedByOrderAction(),
                 new ExitProgramAction()
         };
 

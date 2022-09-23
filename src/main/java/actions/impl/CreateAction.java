@@ -1,5 +1,6 @@
-package actions;
+package actions.impl;
 
+import actions.EmployeeAction;
 import input.Input;
 import model.Employee;
 import service.EmployeeService;
@@ -8,7 +9,7 @@ public class CreateAction implements EmployeeAction {
 
     @Override
     public String name() {
-        return "Create a new Employee";
+        return "Create a new employee.";
     }
 
     @Override

@@ -1,20 +1,19 @@
-package actions;
+package actions.impl;
 
+import actions.EmployeeAction;
 import input.Input;
-import model.Employee;
 import service.EmployeeService;
+import sort.Ordered;
 
 public class FindAllAction implements EmployeeAction {
     @Override
     public String name() {
-        return "Find all Employees";
+        return "Find all Employees.";
     }
 
     @Override
     public boolean execute(Input input, EmployeeService employeeService) {
-        for (Employee employee : employeeService.findAll()) {
-            System.out.println(employee);
-        }
+        employeeService.findAll(Ordered.DEFAULT).forEach(System.out::println);
 
         return true;
     }
