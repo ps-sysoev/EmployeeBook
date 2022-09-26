@@ -1,8 +1,8 @@
 package actions.impl;
 
 import actions.EmployeeAction;
+import dto.EmployeeDto;
 import input.Input;
-import model.Employee;
 import service.EmployeeService;
 
 public class CreateAction implements EmployeeAction {
@@ -17,7 +17,7 @@ public class CreateAction implements EmployeeAction {
         String name = input.askStr("Enter name: ");
         String country = input.askStr("Enter country: ");
 
-        Employee employee = new Employee(name, country);
+        EmployeeDto employee = new EmployeeDto(name, country);
 
         return employeeService.save(employee);
     }

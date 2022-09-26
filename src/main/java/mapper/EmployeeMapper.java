@@ -28,6 +28,19 @@ public class EmployeeMapper {
     }
 
     /**
+     * Преобразует dto в сущность
+     * @param employeeDto  Dto
+     * @return сущность
+     */
+    public Employee fromEmployeeDtoToEmployeeEntity(EmployeeDto employeeDto) {
+        return Employee.builder()
+                .name(employeeDto.getName())
+                .country(employeeDto.getCountry())
+                .created(LocalDateTime.now())
+                .build();
+    }
+
+    /**
      * Получаем из строки корректную дату
      * @param date строка с датой
      * @return результат парсинга - корректная дата

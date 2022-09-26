@@ -1,15 +1,15 @@
 package model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@ToString
 @EqualsAndHashCode
+@Builder
+@AllArgsConstructor
 public class Employee {
     private long id;
     private String name;

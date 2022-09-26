@@ -1,38 +1,32 @@
 package service;
 
 import dto.EmployeeDto;
+import lombok.RequiredArgsConstructor;
 import mapper.EmployeeMapper;
 import model.Employee;
-import repository.impl.EmployeeMemRepository;
+import repository.Repository;
 import sort.EmployeeComparatorAsc;
 import sort.EmployeeComparatorDesc;
 import sort.Ordered;
-import util.Constants;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@RequiredArgsConstructor
 public class EmployeeService {
-    private final EmployeeMemRepository employeeMemRepository;
+    private final Repository<Long, Employee> employeeMemRepository;
     private final EmployeeMapper employeeMapper;
 
-    public EmployeeService(EmployeeMemRepository employeeMemRepository, EmployeeMapper employeeMapper) {
-        this.employeeMemRepository = employeeMemRepository;
-        this.employeeMapper = employeeMapper;
+    public boolean save(EmployeeDto employee) {
+        Employee result = employeeMemRepository.save(employeeMapper.fromEmployeeDtoToEmployeeEntity(employee));
 
-        employeeMemRepository.init();
+        return result.getId() != 0;
     }
 
-    public boolean save(Employee employee) {
-        Employee result = employeeMemRepository.save(employee);
-
-        return result.getId() != Constants.INCORRECT_ID;
-    }
-
-    public boolean update(long id, Employee employee) {
-        return employeeMemRepository.update(id, employee);
+    public boolean update(long id, EmployeeDto employee) {
+        return employeeMemRepository.update(id, employeeMapper.fromEmployeeDtoToEmployeeEntity(employee));
     }
 
     public boolean delete(long id) {

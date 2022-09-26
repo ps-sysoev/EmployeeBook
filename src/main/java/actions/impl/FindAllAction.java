@@ -4,6 +4,7 @@ import actions.EmployeeAction;
 import input.Input;
 import service.EmployeeService;
 import sort.Ordered;
+import util.OutputUtil;
 
 public class FindAllAction implements EmployeeAction {
     @Override
@@ -13,7 +14,7 @@ public class FindAllAction implements EmployeeAction {
 
     @Override
     public boolean execute(Input input, EmployeeService employeeService) {
-        employeeService.findAll(Ordered.DEFAULT).forEach(System.out::println);
+        OutputUtil.print(employeeService.findAll(Ordered.DEFAULT));
 
         return true;
     }

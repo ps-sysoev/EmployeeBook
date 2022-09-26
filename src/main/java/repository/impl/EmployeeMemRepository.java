@@ -40,7 +40,7 @@ public class EmployeeMemRepository implements Repository<Long, Employee> {
 
         if (result) {
             employee.setId(id);
-            employee.setCreated(employee.getCreated());
+            employee.setCreated(store.get(index).getCreated());
 
             store.set(index, employee);
         }

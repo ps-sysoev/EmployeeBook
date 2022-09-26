@@ -5,19 +5,21 @@ import actions.impl.*;
 import input.ConsoleInput;
 import input.Input;
 import mapper.EmployeeMapper;
+import model.Employee;
+import repository.Repository;
 import repository.impl.EmployeeMemRepository;
 import service.EmployeeService;
 
 public class StartUI {
     private void showMenu(EmployeeAction[] employeeAction) {
-        System.out.println("*****************************");
+        System.out.println("************************************");
         System.out.println("Welcome it is menu.");
 
         for (int i = 0; i < employeeAction.length; i++) {
             System.out.println("[" + i + "] " + employeeAction[i].name());
         }
 
-        System.out.println("*****************************");
+        System.out.println("************************************");
     }
 
     public void init(Input input, EmployeeService employeeService, EmployeeAction[] employeeAction) {
@@ -41,13 +43,16 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        Input input = new ConsoleInput();
-        EmployeeService employeeService = new EmployeeService(
-                new EmployeeMemRepository(),
+        final Input input = new ConsoleInput();
+
+        final Repository<Long, Employee> store = new EmployeeMemRepository();
+
+        final EmployeeService employeeService = new EmployeeService(
+                store,
                 new EmployeeMapper()
         );
 
-        EmployeeAction[] actions = {
+        final EmployeeAction[] actions = {
                 new CreateAction(),
                 new UpdateAction(),
                 new DeleteAction(),
