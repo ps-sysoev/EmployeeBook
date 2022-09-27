@@ -1,8 +1,10 @@
 package repository.impl;
 
+import mapper.EmployeeMapper;
 import model.Employee;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -58,7 +60,6 @@ public class EmployeeMemRepositoryTest {
 
         assertFalse(result);
         assertEquals(2, employeeMemRepository.findAll().size());
-
     }
 
     @Test
@@ -87,7 +88,28 @@ public class EmployeeMemRepositoryTest {
 
     @Test
     public void findByCreatedDateIntervalTest() {
-        // TODO
+        EmployeeMapper employeeMapper = new EmployeeMapper();
+
+        Employee firstEmployee = new Employee("Vladimir", "Russia");
+        firstEmployee.setCreated(employeeMapper.parseDate("10-09-2022 10:55"));
+        employeeMemRepository.save(firstEmployee);
+
+        Employee secondEmployee = new Employee("Dmitry", "Russia");
+        secondEmployee.setCreated(employeeMapper.parseDate("10-09-2022 11:55"));
+        employeeMemRepository.save(secondEmployee);
+
+        Employee thirdEmployee = new Employee("Vladimir", "Russia");
+        thirdEmployee.setCreated(employeeMapper.parseDate("10-09-2022 11:35"));
+        employeeMemRepository.save(thirdEmployee);
+
+        LocalDateTime begin = employeeMapper.parseDate("10-09-2022 11:30");
+        LocalDateTime end = employeeMapper.parseDate("10-09-2022 12:00");
+
+        List<Employee> employees = employeeMemRepository.findByCreatedDateInterval(begin, end);
+
+        assertEquals(2, employees.size());
+
+        assertArrayEquals(List.of(secondEmployee, thirdEmployee).toArray(), employees.toArray());
     }
 
     @Test

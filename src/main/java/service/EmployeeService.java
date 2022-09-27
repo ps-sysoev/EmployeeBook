@@ -39,7 +39,7 @@ public class EmployeeService {
     }
 
     public List<EmployeeDto> findAll(Ordered ordered) {
-        List<EmployeeDto>  employees = getMappingData(employeeMemRepository.findAll().stream());
+        List<EmployeeDto> employees = getMappingData(employeeMemRepository.findAll().stream());
 
         switch (ordered) {
             case ASC: {
