@@ -116,9 +116,4 @@ public class EmployeeMemRepositoryTest {
     public void indexOfTest() {
         // TODO
     }
-
-    @Test
-    public void generateIdTest() {
-        // TODO
-    }
 }
