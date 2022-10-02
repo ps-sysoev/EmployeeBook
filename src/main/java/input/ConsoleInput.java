@@ -1,5 +1,7 @@
 package input;
 
+import util.Constants;
+
 import java.util.Scanner;
 
 public class ConsoleInput implements Input {
@@ -14,6 +16,8 @@ public class ConsoleInput implements Input {
 
     @Override
     public long askLong(String question) {
-        return Long.parseLong(askStr(question));
+        String line = askStr(question);
+
+        return line.matches("\\d+") ? Long.parseLong(line) : Constants.INCORRECT_ID;
     }
 }
