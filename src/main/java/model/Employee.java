@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
     private long id;
     private String name;
