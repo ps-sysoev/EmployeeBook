@@ -76,4 +76,8 @@ public class EmployeeService {
                 .map(employeeMapper::fromEmployeeToEmployeeDto)
                 .collect(Collectors.toList());
     }
+
+    public void closeAllSession() {
+        employeeRepository.close();
+    }
 }

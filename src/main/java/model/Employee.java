@@ -2,6 +2,8 @@ package model;
 
 import lombok.*;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
@@ -11,10 +13,21 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee {
+@Entity
+@Table(name = "EMPLOYEES")
+public class Employee implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private long id;
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "COUNTRY")
     private String country;
+
+    @Column(name = "CREATED", nullable = false)
     private LocalDateTime created;
 
     public Employee(@NonNull String name, String country) {

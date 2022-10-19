@@ -22,4 +22,5 @@ public interface Repository<K, V> {
 
     List<V> findByCreatedDateInterval(LocalDateTime start, LocalDateTime end);
 
+    void close();
 }

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Slf4j
-public class EmployeeDatabaseRepository implements Repository<Long, Employee> {
+public class EmployeeJdbcRepository implements Repository<Long, Employee> {
     Connection connection;
 
     @Override
@@ -222,5 +222,18 @@ public class EmployeeDatabaseRepository implements Repository<Long, Employee> {
         }
 
         return employeeList;
+    }
+
+    @Override
+    public void close() {
+        try{
+            connection.close();
+
+            log.info("Session is closed.");
+        } catch (SQLException e) {
+            log.error("Close session: SQLException in the close method {} {}", e.getClass().getCanonicalName(), e.getMessage());
+
+            e.printStackTrace();
+        }
     }
 }

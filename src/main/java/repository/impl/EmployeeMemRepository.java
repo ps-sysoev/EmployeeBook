@@ -101,4 +101,9 @@ public class EmployeeMemRepository implements Repository<Long, Employee> {
     private long generateId() {
         return Math.abs(new Random().nextLong());
     }
+
+    @Override
+    public void close() {
+        log.info("This is mem repository. Session is not supported.");
+    }
 }
