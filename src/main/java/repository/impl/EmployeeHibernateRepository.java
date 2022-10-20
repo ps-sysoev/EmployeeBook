@@ -111,7 +111,15 @@ public class EmployeeHibernateRepository implements Repository<Long, Employee> {
 
     @Override
     public List<Employee> findByCreatedDateInterval(LocalDateTime start, LocalDateTime end) {
-        return null;
+        Session session = sessionFactory.openSession();
+
+        session.beginTransaction();
+        Query<Employee> employeeQuery = session.createQuery("from Employee where created between :start and :end", Employee.class);
+        employeeQuery.setParameter("start", start);
+        employeeQuery.setParameter("end", end);
+        session.getTransaction().commit();
+
+        return employeeQuery.getResultList();
     }
 
     @Override

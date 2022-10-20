@@ -27,7 +27,7 @@ public class Employee implements Serializable {
     @Column(name = "COUNTRY")
     private String country;
 
-    @Column(name = "CREATED", nullable = false)
+    @Column(name = "CREATED", nullable = false, updatable = false)
     private LocalDateTime created;
 
     public Employee(@NonNull String name, String country) {
